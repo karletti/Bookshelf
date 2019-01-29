@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block title %}Query list{% endblock %}
+{% block body %}
+    <h1>Doctrine</h1>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Count</td>
+        </tr>
+        {% for entry in doctrine %}
+            <tr>
+                <td>{{ entry.id }}</td>
+                <td>{{ entry.name }}</td>
+                <td>{{ entry.author_count }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <h1>DQL</h1>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Count</td>
+        </tr>
+        {% for entry in dql %}
+            <tr>
+                <td>{{ entry.id }}</td>
+                <td>{{ entry.name }}</td>
+                <td>{{ entry.author_count }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <h1>SQL</h1>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Count</td>
+        </tr>
+        {% for entry in sql %}
+            <tr>
+                <td>{{ entry.id }}</td>
+                <td>{{ entry.name }}</td>
+                <td>{{ entry.author_count }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
