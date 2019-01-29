@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block title %}Authors list{% endblock %}
+{% block body %}
+    <a href="authors/create">Create new author</a>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Books</td>
+        </tr>
+        {% for entry in authors %}
+            <tr>
+                <td>{{ entry.id }}</td>
+                <td>{{ entry.name }}</td>
+                <td>
+                    {% for book in entry.books %}
+                        {{ book.name }}<br>
+                    {% endfor %}
+                </td>
+                <td><a href="authors/{{ entry.id }}">Edit</a></td>
+                <td><a href="authors/delete/{{ entry.id }}">Delete</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block title %}Delete {{ object_class }}{% endblock %}
+{% block body %}
+
+    {{ form_start(form) }}
+        <h3>Do you really want delete {{ object_class }} with id {{ object_id }}</h3>
+        {{ form_widget(form.delete) }}
+        {{ form_widget(form.cancel) }}
+    {{ form_end(form) }}
+
+{% endblock %}

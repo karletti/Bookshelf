@@ -33,3 +33,11 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    AppBundle\Service\FileUploader:
+        arguments:
+            $targetDirectory: '%img_directory%'
+
+    AppBundle\EventListener\FileManageSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
