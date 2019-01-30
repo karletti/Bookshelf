@@ -49,4 +49,27 @@ class BookRepository extends EntityRepository
 
         return $query->execute();
     }
+
+    public function findByFilter($data){
+
+        $qb = $this->createQueryBuilder('b');
+
+        foreach ($data as $key => $value){
+            if ($value !== null && $key !== 'authors'){
+                if (is_string($value)){
+                    $qb->andWhere($qb->expr()->like('b.'.$key, '\'%'.$value).'%\'');
+                } else {
+                    $qb->andWhere($qb->expr()->eq('b.'.$key, $value));
+                }
+            } elseif ($key === 'authors' && !$value->isEmpty()){
+                $qb->leftJoin('b.authors', 'ba');
+                foreach ($value->getValues() as $value) {
+                    $qb->andWhere($qb->expr()->eq('ba.id', $value->getId()));
+                    //$qb->orWhere($qb->expr()->eq('ba.id', $value->getId()));
+                }
+            }
+        }
+        
+        return $qb->getQuery()->execute();
+    }
 }

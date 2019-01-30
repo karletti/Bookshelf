@@ -2,30 +2,37 @@
 {% block title %}Books list{% endblock %}
 {% block body %}
     <a href="books/create">Create new book</a>
-    <table>
-        <tr>
-            <td>Id</td>
-            <td>Name</td>
-            <td>Authors</td>
-            <td>Description</td>
-            <td>Cover</td>
-            <td>Year</td>
-        </tr>
-        {% for entry in books %}
+    <div>
+        <h3>Filters</h3>
+        {{ form_start(form) }}
+        {{ form_end(form) }}
+    </div>
+    <div>
+        <table>
             <tr>
-                <td>{{ entry.id }}</td>
-                <td>{{ entry.name }}</td>
-                <td>
-                    {% for author in entry.authors %}
-                        {{ author.name }}<br>
-                    {% endfor %}
-                </td>
-                <td>{{ entry.description }}</td>
-                <td><img src="{{ entry.cover }}"></td>
-                <td>{{ entry.year }}</td>
-                <td><a href="books/{{ entry.id }}">Edit</a></td>
-                <td><a href="books/delete/{{ entry.id }}">Delete</a></td>
+                <td>Id</td>
+                <td>Name</td>
+                <td>Authors</td>
+                <td>Description</td>
+                <td>Cover</td>
+                <td>Year</td>
             </tr>
-        {% endfor %}
-    </table>
+            {% for entry in books %}
+                <tr>
+                    <td>{{ entry.id }}</td>
+                    <td>{{ entry.name }}</td>
+                    <td>
+                        {% for author in entry.authors %}
+                            {{ author.name }}<br>
+                        {% endfor %}
+                    </td>
+                    <td>{{ entry.description }}</td>
+                    <td><img src="{{ entry.cover }}"></td>
+                    <td>{{ entry.year }}</td>
+                    <td><a href="books/{{ entry.id }}">Edit</a></td>
+                    <td><a href="books/delete/{{ entry.id }}">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}

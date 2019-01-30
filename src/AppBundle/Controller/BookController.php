@@ -4,8 +4,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Book;
 use AppBundle\Form\BookType;
+use AppBundle\Form\SearchType;
 use AppBundle\Form\DeleteType;
-use AppBundle\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,19 +17,32 @@ class BookController extends Controller
     /**
      * @Route("/books", name="book_list")
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
-        $books = $this->getDoctrine()
-            ->getRepository('AppBundle:Book')
-            ->findAll();
+        $em = $this->getDoctrine()->getManager();
 
-        return $this->render('book/list.html.twig', array('books' => $books));
+        $form = $this->createForm(SearchType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()){
+
+            $data = $form->getData();
+
+
+            $books = $em->getRepository('AppBundle:Book')->findByFilter($data);
+        } else {
+            $books = $em->getRepository('AppBundle:Book')->findAll();
+        }
+
+        return $this->render('book/list.html.twig', array(
+            'books' => $books, 'form' => $form->createView()));
     }
 
     /**
      * @Route("/books/create", name="book_create")
      */
-    public function createAction(Request $request, FileUploader $fileUploader)
+    public function createAction(Request $request)
     {
         $book = new Book();
 
@@ -56,7 +69,7 @@ class BookController extends Controller
     /**
      * @Route("/books/{id}", name="book_edit")
      */
-    public function editAction($id, Request $request, FileUploader $fileUploader)
+    public function editAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
