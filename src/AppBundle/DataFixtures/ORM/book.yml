@@ -1,0 +1,7 @@
+AppBundle\Entity\Book:
+    dummy_{1..10}:
+        name: <name()>
+        authors: '<numberBetween(1, 10)>x @author*'
+        description: <text()>
+        cover: <image('<{app.alice.parameters.project_path}>/web/uploads/img', 300, 300, 'cats', false)>
+        year: <numberBetween(1900, 2019)>

@@ -1,0 +1,2 @@
+parameters:
+    app.alice.parameters.project_path: '/home/rk/bookshelf'
